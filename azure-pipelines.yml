@@ -1,0 +1,65 @@
+# Python package
+# Create and test a Python package on multiple Python versions.
+# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+variables:
+  buildPlatform: 'x64'
+  buildConfiguration: 'release'
+  major: 0
+  minor: 1
+  revision: $[counter('rev', 0)]
+strategy:
+  matrix:
+    Python36:
+      python.version: '3.6'
+
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '$(python.version)'
+  displayName: 'Use Python $(python.version)'
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r 'requirements.txt'
+  displayName: 'Install dependencies'
+
+- script: |
+    sed -i "s/^version:.*/version: $(major).$(minor).$(revision)/" galaxy.yml
+    ansible-galaxy collection build
+  displayName: 'Package'
+
+- script: |
+    bash examples/test.sh
+  displayName: 'Test somehow'
+
+- script: |
+    flake8
+  displayName: 'Static code analysis'
+
+- task: GithubRelease@0
+  displayName: 'Create GitHub Release'   
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
+  inputs:
+    tagSource: manual
+    tag: v$(major).$(minor).$(revision)
+    gitHubConnection: github.com_freedge
+    repositoryName: freedge/protect
+    assets: |
+      freedge-protect-*.tar.gz
+
+- script: |
+    ansible-galaxy collection publish --token $(galaxy_token) freedge-protect-*.tar.gz
+  displayName: 'Publish on Galaxy'
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+
+
+

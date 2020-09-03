@@ -1,0 +1,17 @@
+ BACKUP NODE N1234 /vol/tata toc=yes mode=\$1 wait=yes
+
+  select name from scripts where name = 'ABORT_'
+  if (RC_OK) goto endit
+
+goto endalways
+
+
+/* Endit routine to exit if ABORT_ script exist */ 
+endit:
+ISSUE MESSAGE I "999 This means we went to endit because the ABORT_ script exsisted" 
+/* This means we went to endit because the ABORT_ script exsisted */ 
+ISSUE MESSAGE I "999 House Keeping Aborted by an administrator" 
+
+endalways:
+
+exit

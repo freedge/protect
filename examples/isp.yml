@@ -1,0 +1,23 @@
+- name: test my new module
+  hosts: ispall
+  gather_facts: no
+  collections:
+    - freedge.protect
+  vars:
+    credentials:
+      username: leuser
+      password: lepass
+      serveraddress: lese
+      command: ["sh", "mock.sh"]
+
+  tasks:
+    - name: configure port
+      register: oldscript
+      delegate_to: localhost
+      configure_script:
+        credentials: "{{ credentials }}"
+        script: toto
+        server: isp123
+        content: "{{lookup('file', 'lescript')}}"
+    - debug:
+        msg: "Found difference: {{oldscript.lediff}}"

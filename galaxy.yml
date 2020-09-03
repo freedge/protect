@@ -1,0 +1,17 @@
+namespace: freedge
+name: protect
+version: 0.0.1
+readme: README.md
+authors:
+  - Francois Rigault <rigault.francois@gmail.com>
+description: unofficial module to manage IBM Spectrum Protect
+license:
+  - GPL-2.0-or-later
+tags:
+  - tsm
+  - IBM Spectrum Protect
+  - dsmadmc
+dependencies: {}
+repository: https://github.com/freedge/protect
+documentation: https://github.com/freedge/protect
+issues: https://github.com/freedge/protect/issues
