@@ -9,7 +9,9 @@ license:
   - GPL-2.0-or-later
 tags:
   - tsm
-  - IBM Spectrum Protect
+  - isp
+  - Spectrum
+  - Protect
   - dsmadmc
 dependencies: {}
 repository: https://github.com/freedge/protect
