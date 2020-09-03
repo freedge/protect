@@ -10,8 +10,8 @@ license:
 tags:
   - tsm
   - isp
-  - Spectrum
-  - Protect
+  - spectrum
+  - protect
   - dsmadmc
 dependencies: {}
 repository: https://github.com/freedge/protect
