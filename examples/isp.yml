@@ -11,7 +11,7 @@
       command: ["sh", "mock.sh"]
 
   tasks:
-    - name: configure port
+    - name: configure script
       register: oldscript
       delegate_to: localhost
       configure_script:
@@ -21,3 +21,26 @@
         content: "{{lookup('file', 'lescript')}}"
     - debug:
         msg: "Found difference: {{oldscript.lediff}}"
+
+    - name: configure schedule
+      delegate_to: localhost
+      configure_schedule:
+        credentials: "{{ credentials }}"
+        server: isp124
+        schedule:
+        - name: CHANGE_AAAAAAAAAAAAAAA
+          command: update admin *
+        - name: N1234_FULL
+          command: run n1234_ndmp full
+        
+    # - name: configure path
+    #   delegate_to: localhost
+    #   configure_schedule:
+    #     credentials: "{{ credentials }}"
+    #     server: isp124
+    #     schedule:
+    #     - name: CHANGE_AAAAAAAAAAAAAAA
+    #       command: update admin *
+    #     - name: N1234_FULL
+    #       command: run n1234_ndmp full
+    

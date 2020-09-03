@@ -12,19 +12,6 @@ An unofficial module to configure IBM Spectrum Protect. It connects to a server 
 # Usage
 
 ```
-- name: test my new module
-  hosts: ispall
-  gather_facts: no
-  collections:
-    - freedge.protect
-  vars:
-    credentials:
-      username: leuser
-      password: lepass
-      serveraddress: isp123
-      command: ["docker", "run", "--rm", "tsm:latest"]
-
-  tasks:
     - name: configure script
       register: oldscript
       delegate_to: localhost
@@ -33,8 +20,18 @@ An unofficial module to configure IBM Spectrum Protect. It connects to a server 
         script: toto
         server: isp123
         content: "{{lookup('file', 'lescript')}}"
-    - debug:
-        msg: "Found difference: {{oldscript.lediff}}"
+
+    - name: configure schedule
+      delegate_to: localhost
+      configure_schedule:
+        credentials: "{{ credentials }}"
+        server: isp124
+        schedule:
+        - name: CHANGE_AAAAAAAAAAAAAAA
+          command: update admin *
+        - name: N1234_FULL
+          command: run n1234_ndmp full
+        
 ``` 
 
 # Prerequisite
