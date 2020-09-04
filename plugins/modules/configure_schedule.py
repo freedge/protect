@@ -23,6 +23,7 @@ output:
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.freedge.protect.plugins.module_utils.runner import run
+import csv
 
 
 class Schedule(object):
@@ -32,8 +33,7 @@ class Schedule(object):
         self.cmd = ""
 
     def froms(self, s):
-        self.name = s.split(",")[0]
-        self.cmd = s.split(",")[2]
+        self.fromo(s)
 
     def fromo(self, obj):
         self.name = obj["name"]
@@ -54,7 +54,7 @@ def main():
     configsched = {}
     missing = []
 
-    for line in lescript:
+    for line in csv.DictReader(lescript, ["name", "description", "command"]):
         s = Schedule()
         s.froms(line)
         runningsched[s.name] = s

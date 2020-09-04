@@ -37,6 +37,7 @@ ANR1697I Command 'Q SCRIPT toto FORMAT=raw' processed by 1 server(s):  1 success
 ANS8002I Highest return code was 0.
 EOF
 fi
+
 if [[ $6 = isp124* ]] ; then
 cat << EOF
 ANR1699I Resolved ISP124 to 1 server(s) - issuing command QUERY SCHEDULE TYPE=a FORMAT=detailed against server(s).
@@ -47,5 +48,12 @@ ANR1688I Output for command 'QUERY SCHEDULE TYPE=a FORMAT=detailed' issued again
 ANR1694I Server ISP124 processed command 'QUERY SCHEDULE TYPE=a FORMAT=detailed' and completed successfully.
 ANR1697I Command 'QUERY SCHEDULE TYPE=a FORMAT=detailed' processed by 1 server(s):  1 successful, 0 with warnings, and 0 with errors.
 EOF
+fi
 
+if [[ $6 = isp125* ]] ; then
+cat << EOF
+ANR1687I Output for command 
+N0129_CL,NetApp,NetApp Release 9.3P14 (Network Appliance),,"Version 0, release 0, level 0.0",NDMP,11/14/2019 13:45:31,294,11/07/2019 13:38:29,301,0,No,,,Yes,No,11/07/2019 13:38:29,ADMIN,NDMP,,,,,,,,,NAS,,No,1,No,No,,,,0,ANY,ANY,ClientOrServer,,,,,,,,ServerOnly,All,,UseReported,,,,,,,,,,None,None,DEFAULT,DEFAULT,DEFAULT,,,WIN:Microsoft Windows Server 2012 Standard,x64,,,Local,Default,Transitional,(?),Yes,Default interval,,,Yes,,
+ANR1688I Output for command 
+EOF
 fi
