@@ -57,3 +57,11 @@ N0129_CL,NetApp,NetApp Release 9.3P14 (Network Appliance),,"Version 0, release 0
 ANR1688I Output for command 
 EOF
 fi
+
+if [[ $6 = isp126* ]] ; then
+cat << EOF
+ANR1687I Output for command 'QUERY SCHEDULE FORMAT=detailed' issued against server ISP126 follows:
+VM,BATCH,,Backup,VM,-vmbackuptype=fullvm -asnodename=AS -mode=ifi -domain.vmfull="Schedule-Tag",,5,05/29/2018 08:00:09,20 Minute(s),0,Classic,1 Hour(s),Any,,,,,PLS,01/26/2018 15:00:00,
+ANR1688I Output for command 'QUERY SCHEDULE FORMAT=detailed' issued against server ISP126 completed.
+EOF
+fi

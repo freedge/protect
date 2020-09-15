@@ -21,18 +21,9 @@ An unofficial module to configure IBM Spectrum Protect. It connects to a server 
         server: isp123
         content: "{{lookup('file', 'lescript')}}"
 
-    - name: configure schedule
-      delegate_to: localhost
-      configure_schedule:
-        credentials: "{{ credentials }}"
-        server: isp124
-        schedule:
-        - name: CHANGE_AAAAAAAAAAAAAAA
-          command: update admin *
-        - name: N1234_FULL
-          command: run n1234_ndmp full
-        
 ``` 
+
+see examples/isp.yml for more.
 
 # Prerequisite
 

@@ -22,7 +22,7 @@
     - debug:
         msg: "Found difference: {{oldscript.lediff}}"
 
-    - name: configure schedule
+    - name: configure administrative schedule
       delegate_to: localhost
       configure_schedule:
         credentials: "{{ credentials }}"
@@ -33,6 +33,16 @@
         - name: N1234_FULL
           command: run n1234_ndmp full
         
+    - name: configure client schedule
+      delegate_to: localhost
+      configure_client_schedule:
+        credentials: "{{ credentials }}"
+        server: isp126
+        schedule:
+        - domain: VM
+          name: BATCH
+          options: '-vmbackuptype=fullvm -asnodename=AS -mode=ifi -domain.vmfull="Schedule-Tag"'
+
     # - name: configure path
     #   delegate_to: localhost
     #   configure_schedule:
