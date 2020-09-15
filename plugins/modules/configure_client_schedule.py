@@ -30,10 +30,11 @@ class Schedule(object):
 
     def __init__(self, obj):
         self.name = obj["name"]
-        self.cmd = obj["command"]
+        self.domain = obj["domain"]
+        self.options = obj["options"]
 
     def __eq__(self, other):
-        return self.cmd == other.cmd
+        return self.options == other.options
 
 
 def main():
@@ -42,17 +43,17 @@ def main():
 
     server = module.params['server']
     changed = False
-    lescript, extra = run(module, server, "query schedule type=administrative format=detailed")
+    lescript, extra = run(module, server, "query schedule format=detailed")
     runningsched = {}
     configsched = {}
     missing = []
 
-    for line in csv.DictReader(lescript, ["name", "description", "command"]):
+    for line in csv.DictReader(lescript, ["domain", "name", "description", "action", "subaction", "options"]):
         s = Schedule(line)
-        runningsched[s.name] = s
+        runningsched[(s.domain, s.name)] = s
     for obj in module.params['schedule']:
         s = Schedule(obj)
-        configsched[s.name] = s
+        configsched[(s.domain, s.name)] = s
 
     for i, j in configsched.items():
         if i in runningsched and j == runningsched[i]:
