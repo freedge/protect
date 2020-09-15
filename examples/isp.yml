@@ -8,7 +8,7 @@
       username: leuser
       password: lepass
       serveraddress: lese
-      command: ["sh", "mock.sh"]
+      command: ["bash", "mock.sh"]
 
   tasks:
     - name: configure script
