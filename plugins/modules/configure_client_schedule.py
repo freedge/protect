@@ -22,7 +22,7 @@ output:
 '''
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.freedge.protect.plugins.module_utils.runner import run
+from ansible_collections.freedge.protect.plugins.module_utils.runner import run, creds
 import csv
 
 
@@ -38,7 +38,7 @@ class Schedule(object):
 
 
 def main():
-    argument_spec = dict(credentials=dict(type="dict"), schedule=dict(type="list"), server=dict(type="str"))
+    argument_spec = dict(credentials=creds(), schedule=dict(type="list"), server=dict(type="str"))
     module = AnsibleModule(argument_spec=argument_spec, supports_check_mode=True)
 
     server = module.params['server']

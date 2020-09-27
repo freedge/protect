@@ -22,11 +22,16 @@ output:
 '''
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.freedge.protect.plugins.module_utils.runner import run
+from ansible_collections.freedge.protect.plugins.module_utils.runner import run, creds
 
 
 def main():
-    argument_spec = dict(credentials=dict(type="dict"), script=dict(type="str"), server=dict(type="str"), content=dict(type="str"))
+    argument_spec = dict(
+        credentials=creds(),
+        script=dict(type="str"),
+        server=dict(type="str"),
+        content=dict(type="str")
+    )
     module = AnsibleModule(argument_spec=argument_spec, supports_check_mode=True)
 
     script = module.params['script']

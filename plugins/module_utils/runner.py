@@ -1,6 +1,10 @@
 import subprocess
 
 
+def creds():
+    return dict(username=dict(type="str"), command=dict(type="str"), serveraddress=dict(type="str"), password=dict(type="str", no_log=True))
+
+
 def run(module, server, query):
     username = module.params['credentials']['username']
     password = module.params['credentials']['password']

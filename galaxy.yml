@@ -17,3 +17,7 @@ dependencies: {}
 repository: https://github.com/freedge/protect
 documentation: https://github.com/freedge/protect
 issues: https://github.com/freedge/protect/issues
+build_ignore:
+  - myenv
+  - .gitignore
+  - examples
