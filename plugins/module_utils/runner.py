@@ -2,7 +2,12 @@ import subprocess
 
 
 def creds():
-    return dict(username=dict(type="str"), command=dict(type="str"), serveraddress=dict(type="str"), password=dict(type="str", no_log=True))
+    return dict(type="dict", required=True, options=dict(
+        username=dict(type="str", required=True),
+        command=dict(type="list", default=["dsmadmc"]),
+        serveraddress=dict(type="str", required=True),
+        password=dict(type="str", no_log=True, required=True)
+    ))
 
 
 def run(module, server, query):
